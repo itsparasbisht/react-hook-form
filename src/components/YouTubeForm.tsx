@@ -30,7 +30,7 @@ export const YouTubeForm = () => {
         dob: new Date(),
       },
     });
-  const { errors } = formState;
+  const { errors, isDirty, isValid } = formState;
 
   const onSubmit = (data: FormValues) => {
     console.log("form submitted", data);
@@ -120,7 +120,7 @@ export const YouTubeForm = () => {
           })}
         />
 
-        <button>Submit</button>
+        <button disabled={!isDirty || !isValid}>Submit</button>
       </form>
     </div>
   );
