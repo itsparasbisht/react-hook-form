@@ -15,7 +15,7 @@ type FormValues = {
 };
 
 export const YouTubeForm = () => {
-  const { register, handleSubmit, formState, getValues, setValue } =
+  const { register, handleSubmit, formState, getValues, setValue, watch } =
     useForm<FormValues>({
       defaultValues: {
         username: "batman",
@@ -37,6 +37,7 @@ export const YouTubeForm = () => {
   };
 
   console.log(getValues());
+  console.log(watch("username"));
 
   const changeValues = () => {
     setValue("age", 21, { shouldValidate: true });
@@ -82,7 +83,11 @@ export const YouTubeForm = () => {
         <p>{errors.channel?.message}</p>
 
         <label htmlFor="twitter">Twitter</label>
-        <input type="text" id="twitter" {...register("social.twitter")} />
+        <input
+          type="text"
+          id="twitter"
+          {...register("social.twitter", { disabled: true })}
+        />
 
         <label htmlFor="instagram">Instagram</label>
         <input type="text" id="instagram" {...register("social.instagram")} />
