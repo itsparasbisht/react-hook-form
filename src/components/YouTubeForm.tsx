@@ -8,6 +8,7 @@ type FormValues = {
     twitter: string;
     instagram: string;
   };
+  phoneNumbers: string[];
 };
 
 export const YouTubeForm = () => {
@@ -20,6 +21,7 @@ export const YouTubeForm = () => {
         twitter: "",
         instagram: "",
       },
+      phoneNumbers: ["", ""],
     },
   });
   const { errors } = formState;
@@ -68,6 +70,16 @@ export const YouTubeForm = () => {
 
         <label htmlFor="instagram">Instagram</label>
         <input type="text" id="instagram" {...register("social.instagram")} />
+
+        <label htmlFor="primary-phone">Primary phone number</label>
+        <input type="text" id="primary-phone" {...register("phoneNumbers.0")} />
+
+        <label htmlFor="secondary-phone">Secondary phone number</label>
+        <input
+          type="text"
+          id="secondary-phone"
+          {...register("phoneNumbers.1")}
+        />
 
         <button>Submit</button>
       </form>
