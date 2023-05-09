@@ -28,7 +28,17 @@ export const YouTubeForm = () => {
         <p>{errors.username?.message}</p>
 
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" {...register("email")} />
+        <input
+          type="email"
+          id="email"
+          {...register("email", {
+            validate: (value) => {
+              return (
+                value !== "admin@gmail.com" || "enter a different email address"
+              );
+            },
+          })}
+        />
         <p>{errors.email?.message}</p>
 
         <label htmlFor="channel">Channel</label>
