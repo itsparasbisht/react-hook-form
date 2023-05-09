@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 type FormValues = {
@@ -14,25 +15,36 @@ type FormValues = {
 };
 
 export const YouTubeForm = () => {
-  const { register, handleSubmit, formState } = useForm<FormValues>({
-    defaultValues: {
-      username: "batman",
-      email: "",
-      channel: "",
-      social: {
-        twitter: "",
-        instagram: "",
+  const { register, handleSubmit, formState, getValues, setValue } =
+    useForm<FormValues>({
+      defaultValues: {
+        username: "batman",
+        email: "",
+        channel: "",
+        social: {
+          twitter: "",
+          instagram: "",
+        },
+        phoneNumbers: ["", ""],
+        age: 0,
+        dob: new Date(),
       },
-      phoneNumbers: ["", ""],
-      age: 0,
-      dob: new Date(),
-    },
-  });
+    });
   const { errors } = formState;
 
   const onSubmit = (data: FormValues) => {
     console.log("form submitted", data);
   };
+
+  console.log(getValues());
+
+  const changeValues = () => {
+    setValue("age", 21, { shouldValidate: true });
+  };
+
+  useEffect(() => {
+    changeValues();
+  }, []);
 
   return (
     <div>
