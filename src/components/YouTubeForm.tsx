@@ -4,10 +4,24 @@ type FormValues = {
   username: string;
   email: string;
   channel: string;
+  social: {
+    twitter: string;
+    instagram: string;
+  };
 };
 
 export const YouTubeForm = () => {
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState } = useForm<FormValues>({
+    defaultValues: {
+      username: "batman",
+      email: "",
+      channel: "",
+      social: {
+        twitter: "",
+        instagram: "",
+      },
+    },
+  });
   const { errors } = formState;
 
   const onSubmit = (data: FormValues) => {
@@ -48,6 +62,12 @@ export const YouTubeForm = () => {
           {...register("channel", { required: "channel name is required" })}
         />
         <p>{errors.channel?.message}</p>
+
+        <label htmlFor="twitter">Twitter</label>
+        <input type="text" id="twitter" {...register("social.twitter")} />
+
+        <label htmlFor="instagram">Instagram</label>
+        <input type="text" id="instagram" {...register("social.instagram")} />
 
         <button>Submit</button>
       </form>
