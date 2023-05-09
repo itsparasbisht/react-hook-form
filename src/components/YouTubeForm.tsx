@@ -9,6 +9,8 @@ type FormValues = {
     instagram: string;
   };
   phoneNumbers: string[];
+  age: number;
+  dob: Date;
 };
 
 export const YouTubeForm = () => {
@@ -22,6 +24,8 @@ export const YouTubeForm = () => {
         instagram: "",
       },
       phoneNumbers: ["", ""],
+      age: 0,
+      dob: new Date(),
     },
   });
   const { errors } = formState;
@@ -79,6 +83,24 @@ export const YouTubeForm = () => {
           type="text"
           id="secondary-phone"
           {...register("phoneNumbers.1")}
+        />
+
+        <label htmlFor="age">Age</label>
+        <input
+          type="number"
+          id="age"
+          {...register("age", {
+            valueAsNumber: true,
+          })}
+        />
+
+        <label htmlFor="dob">Date of Birth</label>
+        <input
+          type="date"
+          id="dob"
+          {...register("dob", {
+            valueAsDate: true,
+          })}
         />
 
         <button>Submit</button>
