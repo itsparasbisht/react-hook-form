@@ -36,6 +36,7 @@ export const YouTubeForm = () => {
       age: 0,
       dob: new Date(),
     },
+    mode: "onTouched",
   });
   const { errors, isDirty, isValid, isSubmitting, isSubmitSuccessful } =
     formState;
@@ -79,10 +80,13 @@ export const YouTubeForm = () => {
           type="email"
           id="email"
           {...register("email", {
-            validate: (value) => {
-              return (
-                value !== "admin@gmail.com" || "enter a different email address"
-              );
+            validate: {
+              notAdmin: (value) => {
+                return (
+                  value !== "admin@gmail.com" ||
+                  "enter a different email address"
+                );
+              },
             },
           })}
         />
@@ -134,7 +138,7 @@ export const YouTubeForm = () => {
           })}
         />
 
-        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+        <button disabled={!isDirty || isSubmitting}>Submit</button>
       </form>
     </div>
   );
