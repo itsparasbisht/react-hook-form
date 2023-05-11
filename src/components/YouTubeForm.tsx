@@ -15,22 +15,36 @@ type FormValues = {
 };
 
 export const YouTubeForm = () => {
-  const { register, handleSubmit, formState, getValues, setValue, watch } =
-    useForm<FormValues>({
-      defaultValues: {
-        username: "batman",
-        email: "",
-        channel: "",
-        social: {
-          twitter: "",
-          instagram: "",
-        },
-        phoneNumbers: ["", ""],
-        age: 0,
-        dob: new Date(),
+  const {
+    register,
+    handleSubmit,
+    formState,
+    getValues,
+    setValue,
+    watch,
+    reset,
+  } = useForm<FormValues>({
+    defaultValues: {
+      username: "batman",
+      email: "",
+      channel: "",
+      social: {
+        twitter: "",
+        instagram: "",
       },
-    });
-  const { errors, isDirty, isValid } = formState;
+      phoneNumbers: ["", ""],
+      age: 0,
+      dob: new Date(),
+    },
+  });
+  const { errors, isDirty, isValid, isSubmitting, isSubmitSuccessful } =
+    formState;
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   const onSubmit = (data: FormValues) => {
     console.log("form submitted", data);
@@ -120,7 +134,7 @@ export const YouTubeForm = () => {
           })}
         />
 
-        <button disabled={!isDirty || !isValid}>Submit</button>
+        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
       </form>
     </div>
   );
